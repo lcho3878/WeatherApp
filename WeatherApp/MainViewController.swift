@@ -202,6 +202,19 @@ class MainViewController: UIViewController {
     }
 }
 
+extension MainViewController {
+    private func showAlert() {
+        let alert = UIAlertController(title: nil, message: "권한이 필요합니다.", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .default) { _ in
+            print("dd")
+            guard let appSetting = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(appSetting)
+        }
+        alert.addAction(ok)
+        present(alert, animated: true)
+    }
+}
+
 //MARK: CLLocationManagerDelegate
 extension MainViewController: CLLocationManagerDelegate {
     
@@ -212,13 +225,14 @@ extension MainViewController: CLLocationManagerDelegate {
     private func checkDeiveLocationAuthorization() {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
-                self.checkCurrentLocationAuthorization()
+                DispatchQueue.main.async {
+                    self.checkCurrentLocationAuthorization()
+                }
             }
             else {
-                print("위치 서비스 꺼져있음")
+                self.showAlert()
             }
         }
-        
     }
     
     private func checkCurrentLocationAuthorization() {
@@ -226,9 +240,10 @@ extension MainViewController: CLLocationManagerDelegate {
         
         switch status {
         case .notDetermined:
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestWhenInUseAuthorization()
         case .denied:
-            print("거부")
+            showAlert()
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
         default:
