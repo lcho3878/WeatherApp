@@ -11,7 +11,8 @@ struct WeatherResult: Decodable {
     let weather: [Weather]
     let main: WeatherMain
     let wind: Wind
-    let rain: Rain
+    let rain: Rain?
+    let snow: Snow?
     let name: String
     
     
@@ -45,6 +46,14 @@ struct WeatherResult: Decodable {
     }
     
     struct Rain: Decodable {
+        let precipitation: Double
+        
+        enum CodingKeys: String, CodingKey {
+            case precipitation = "1h"
+        }
+    }
+    
+    struct Snow: Decodable {
         let precipitation: Double
         
         enum CodingKeys: String, CodingKey {
