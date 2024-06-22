@@ -56,7 +56,6 @@
 			children = (
 				540927572C269066007BD4F0 /* .gitignore */,
 				540927342C268C30007BD4F0 /* WeatherApp */,
-				540927592C269073007BD4F0 /* APIKey.swift */,
 				540927332C268C30007BD4F0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +71,7 @@
 		540927342C268C30007BD4F0 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				540927592C269073007BD4F0 /* APIKey.swift */,
 				540927352C268C30007BD4F0 /* AppDelegate.swift */,
 				540927372C268C30007BD4F0 /* SceneDelegate.swift */,
 				540927392C268C30007BD4F0 /* MainViewController.swift */,
