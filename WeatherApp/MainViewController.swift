@@ -26,6 +26,15 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    private let loadingIndicator = {
+        let view = UIActivityIndicatorView()
+        view.startAnimating()
+        view.color = .white
+        view.style = .large
+        return view
+    }()
+    
+    //MARK: MainView Properties
     private let timeLabel = {
         let timeLabel = UILabel()
         timeLabel.textColor = .white
@@ -103,6 +112,7 @@ class MainViewController: UIViewController {
     
     private func configureHierarchy() {
         view.addSubview(mainView)
+        view.addSubview(loadingIndicator)
         mainView.addSubview(timeLabel)
         mainView.addSubview(locationImageView)
         mainView.addSubview(locationLabel)
@@ -118,6 +128,10 @@ class MainViewController: UIViewController {
     private func configureLayout() {
         mainView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
         timeLabel.snp.makeConstraints {
@@ -183,6 +197,7 @@ class MainViewController: UIViewController {
         humidityLabel.text = result.humidityDescription
         windLabel.text = result.windDescription
         weatherImageView.kf.setImage(with: result.iconImageURL)
+        loadingIndicator.stopAnimating()
         mainView.isHidden = false
     }
 }
