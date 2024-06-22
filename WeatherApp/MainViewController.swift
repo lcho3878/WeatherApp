@@ -20,18 +20,18 @@ class MainViewController: UIViewController {
 
     //MARK: View Properties
     private let mainView = {
-        let view = UIView()
-        view.backgroundColor = .systemOrange
-        view.isHidden = true
-        return view
+        let mainView = UIView()
+        mainView.backgroundColor = .systemOrange
+        mainView.isHidden = true
+        return mainView
     }()
     
     private let loadingIndicator = {
-        let view = UIActivityIndicatorView()
-        view.startAnimating()
-        view.color = .white
-        view.style = .large
-        return view
+        let loadingIndicator = UIActivityIndicatorView()
+        loadingIndicator.startAnimating()
+        loadingIndicator.color = .white
+        loadingIndicator.style = .large
+        return loadingIndicator
     }()
     
     //MARK: MainView Properties
@@ -82,11 +82,11 @@ class MainViewController: UIViewController {
     }()
     
     private let weatherImageView = {
-        let view = UIImageView()
-        view.backgroundColor = .white
-        view.contentMode = .center
-        view.layer.cornerRadius = 8
-        return view
+        let weatherImageView = UIImageView()
+        weatherImageView.backgroundColor = .white
+        weatherImageView.contentMode = .center
+        weatherImageView.layer.cornerRadius = 8
+        return weatherImageView
     }()
     
     private lazy var commentLabel = {
