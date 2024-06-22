@@ -15,6 +15,23 @@ struct WeatherResult: Decodable {
     let snow: Snow?
     let name: String
     
+    var tempDescription: String {
+        return "지금은 \(main.temp)°C 에요"
+    }
+    
+    var humidityDescription: String {
+        return "\(main.humidity)% 만큼 습해요"
+    }
+    
+    var windDescription: String {
+        return "\(wind.speed)m/s의 바람이 불어요"
+    }
+    
+    var iconImageURL: URL? {
+        guard let icon = weather.first?.icon,
+              let url = URL(string: "https://openweathermap.org/img/w/\(icon).png") else { return nil }
+        return url
+    }
     
     struct Weather: Decodable {
         let id: Int

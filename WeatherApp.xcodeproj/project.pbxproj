@@ -56,6 +56,7 @@
 			children = (
 				540927572C269066007BD4F0 /* .gitignore */,
 				540927342C268C30007BD4F0 /* WeatherApp */,
+				540927592C269073007BD4F0 /* APIKey.swift */,
 				540927332C268C30007BD4F0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,10 +78,8 @@
 				5409273E2C268C30007BD4F0 /* Assets.xcassets */,
 				540927402C268C30007BD4F0 /* LaunchScreen.storyboard */,
 				540927432C268C30007BD4F0 /* Info.plist */,
-				540927542C268E18007BD4F0 /* Model */,
-				540927592C269073007BD4F0 /* APIKey.swift */,
-				54C9A9412C2698380078040D /* WeatherService.swift */,
 				54C9A9452C26C0A40078040D /* CustomView */,
+				540927542C268E18007BD4F0 /* Model */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -89,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				540927522C268E11007BD4F0 /* Weather.swift */,
+				54C9A9412C2698380078040D /* WeatherService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

@@ -8,10 +8,25 @@
 import UIKit
 
 class UIPaddingLabel: UILabel{
-    var topInset: CGFloat = 8.0
-    var bottomInset: CGFloat = 8.0
-    var leftInset: CGFloat = 8.0
-    var rightInset: CGFloat = 8.0
+    var topInset: CGFloat = 0
+    var bottomInset: CGFloat = 0
+    var leftInset: CGFloat = 0
+    var rightInset: CGFloat = 0
+    
+    init (edgeInsets: UIEdgeInsets) {
+        super.init(frame: .zero)
+        topInset = edgeInsets.top
+        bottomInset = edgeInsets.bottom
+        leftInset = edgeInsets.left
+        rightInset = edgeInsets.right
+        clipsToBounds = true
+        layer.cornerRadius = 8
+        backgroundColor = .white
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
