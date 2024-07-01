@@ -31,6 +31,10 @@ final class NasaViewController: UIViewController {
     
     private var session: URLSession!
     
+    private var total: Double = 0
+    
+    private var buffer: Data?
+    
     private let nasaImageView = {
         let imgview = UIImageView()
         imgview.contentMode = .scaleAspectFill
@@ -94,6 +98,7 @@ final class NasaViewController: UIViewController {
 extension NasaViewController {
     @objc
     private func requestButtonClicked() {
+        buffer = Data()
         callRequest()
     }
     
@@ -108,16 +113,33 @@ extension NasaViewController {
 extension NasaViewController: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse) async -> URLSession.ResponseDisposition {
-        print(#function)
+        guard let response = response as? HTTPURLResponse,
+              (200...299).contains(response.statusCode),
+              let contentLength = response.value(forHTTPHeaderField: "Content-Length"),
+              let totalLength = Double(contentLength) else { return .cancel}
+        
+        total = totalLength
         return .allow
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        print(#function, data)
+        buffer?.append(data)
+        let percent = Double(buffer?.count ?? 0) / total  * 100
+        progressLabel.text = "\(String(format: "%.2f", percent)) / 100.0"
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
-        print(#function, error)
+        guard error == nil else {
+            progressLabel.text = "문제가 발생했습니다."
+            return
+        }
+        
+        guard let buffer = buffer else {
+            progressLabel.text = "Buffer nil"
+            return
+        }
+        let image = UIImage(data: buffer)
+        nasaImageView.image = image
     }
     
 }
