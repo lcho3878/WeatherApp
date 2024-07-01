@@ -29,6 +29,8 @@ final class NasaViewController: UIViewController {
         }
     }
     
+    private var session: URLSession!
+    
     private let nasaImageView = {
         let imgview = UIImageView()
         imgview.contentMode = .scaleAspectFill
@@ -96,7 +98,27 @@ extension NasaViewController {
     }
     
     private func callRequest() {
-        print(#function)
+        let request = URLRequest(url: Nasa.photo)
+        
+        session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        session.dataTask(with: request).resume()
     }
+}
+
+extension NasaViewController: URLSessionDataDelegate {
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse) async -> URLSession.ResponseDisposition {
+        print(#function)
+        return .allow
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        print(#function, data)
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
+        print(#function, error)
+    }
+    
 }
 
