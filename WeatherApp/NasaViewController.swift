@@ -103,6 +103,7 @@ extension NasaViewController {
     }
     
     private func callRequest() {
+        requestButton.isEnabled = false
         let request = URLRequest(url: Nasa.photo)
         
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
@@ -129,6 +130,7 @@ extension NasaViewController: URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
+        requestButton.isEnabled = true
         guard error == nil else {
             progressLabel.text = "문제가 발생했습니다."
             return
