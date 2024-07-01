@@ -15,7 +15,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let rootVC = MainViewController()
+//        let rootVC = MainViewController()
+        let rootVC = UITabBarController()
+        let nasaVC = NasaViewController()
+        let weatherVC = MainViewController()
+        nasaVC.title = "NASA"
+        weatherVC.title = "Weather"
+        rootVC.viewControllers = [nasaVC, weatherVC]
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
     }
