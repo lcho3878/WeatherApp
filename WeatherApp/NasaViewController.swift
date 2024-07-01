@@ -133,11 +133,13 @@ extension NasaViewController: URLSessionDataDelegate {
         requestButton.isEnabled = true
         guard error == nil else {
             progressLabel.text = "문제가 발생했습니다."
+            nasaImageView.image = UIImage(systemName: "star")
             return
         }
         
         guard let buffer = buffer else {
             progressLabel.text = "Buffer nil"
+            nasaImageView.image = UIImage(systemName: "star")
             return
         }
         let image = UIImage(data: buffer)
