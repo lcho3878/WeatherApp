@@ -41,6 +41,13 @@ final class NasaViewController: UIViewController {
         return imgview
     }()
     
+    private let activityIndicator = {
+        let view = UIActivityIndicatorView()
+        view.style = .large
+        view.color = .black
+        return view
+    }()
+    
     private let progressLabel = {
         let lb = UILabel()
         lb.backgroundColor = .lightGray
@@ -71,6 +78,7 @@ final class NasaViewController: UIViewController {
         view.addSubview(requestButton)
         view.addSubview(progressLabel)
         view.addSubview(nasaImageView)
+        nasaImageView.addSubview(activityIndicator)
     }
     
     private func configureLayout() {
@@ -91,6 +99,10 @@ final class NasaViewController: UIViewController {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.top.equalTo(progressLabel.snp.bottom).offset(20)
         }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
 }
@@ -104,6 +116,7 @@ extension NasaViewController {
     
     private func callRequest() {
         requestButton.isEnabled = false
+        activityIndicator.startAnimating()
         let request = URLRequest(url: Nasa.photo)
         
         session = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
@@ -131,6 +144,7 @@ extension NasaViewController: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
         requestButton.isEnabled = true
+        activityIndicator.stopAnimating()
         guard error == nil else {
             progressLabel.text = "문제가 발생했습니다."
             nasaImageView.image = UIImage(systemName: "star")
